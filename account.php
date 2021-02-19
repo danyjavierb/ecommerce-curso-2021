@@ -1,3 +1,17 @@
+<?php
+if(isset($_GET['error'])){
+
+  switch ($_GET['error']) {
+    case 'loginError':
+      echo "<script>alert('Username o Password incorrectos')</script>";
+      break;
+    default:
+    echo "<script>alert('ocurrio un error intente mas tarde..')</script>";
+      break;
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,18 +75,19 @@
                 <span onclick="register()">Register</span>
                 <hr id="indicator" />
               </div>
-              <form action="" id="LoginForm">
-                <input type="text" placeholder="Username" />
-                <input type="password" placeholder="Password" />
+              <!-- FORMULARIO LOGIN -->
+              <form method='POST' action="login.php" id="LoginForm">
+                <input name="username" type="text" placeholder="Username" />
+                <input name="password" type="password" placeholder="Password" />
 
                 <button type="submit" class="btn">Login</button>
                 <a href="">Forgot Password</a>
               </form>
-              <form action="" id="RegForm">
-                <input type="text" placeholder="Username" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-
+               <!-- FORMULARIO REGISTRO -->
+              <form method='POST' action="registro.php" id="RegForm">
+                <input required name="username" type="text" placeholder="Username" />
+                <input required name="email" type="email" placeholder="Email" />
+                <input required name="password" type="password" placeholder="Password" />
                 <button type="submit" class="btn">Register</button>
               </form>
             </div>

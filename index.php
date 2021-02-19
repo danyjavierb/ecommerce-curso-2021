@@ -29,7 +29,20 @@
               <li><a href="products.html">Products</a></li>
               <li><a href="">About</a></li>
               <li><a href="">Contact</a></li>
-              <li><a href="account.html">Account</a></li>
+              <li><?php 
+
+              if (isset($_COOKIE['logueado']) && isset($_COOKIE['username'])){
+                $usernameLogueado = $_COOKIE['username'];
+                echo "<a href='profile.html'>Bienvenido $usernameLogueado </a>";
+              }else {
+                echo '<a href="account.php">Account</a>';
+              }
+              
+              ?>
+                
+             
+            
+            </li>
               <!-- TODo: 22:20 -->
             </ul>
           </nav>
