@@ -5,6 +5,9 @@ if(isset($_GET['error'])){
     case 'loginError':
       echo "<script>alert('Username o Password incorrectos')</script>";
       break;
+    case 'datosExistentesError':
+        echo "<script>alert('Username o email ya estan registrados')</script>";
+        break;  
     default:
     echo "<script>alert('ocurrio un error intente mas tarde..')</script>";
       break;
@@ -85,6 +88,7 @@ if(isset($_GET['error'])){
               </form>
                <!-- FORMULARIO REGISTRO -->
               <form method='POST' action="registro.php" id="RegForm">
+                <input required name="nombre" type="text" placeholder="Name" /> 
                 <input required name="username" type="text" placeholder="Username" />
                 <input required name="email" type="email" placeholder="Email" />
                 <input required name="password" type="password" placeholder="Password" />

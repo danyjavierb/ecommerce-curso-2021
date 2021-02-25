@@ -1,28 +1,27 @@
 <?php 
+require_once('./db.php');
+$nombre = $_POST['nombre'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 $email = $_POST['email'];
 
-$archivos = array_diff (scandir("cuentas/"), array('.','..'));
+$pdo = getPdo();
 
-$errorValidacion = false;
-foreach ($archivos as $archivo) {
-    $archivoRegistro = file_get_contents("cuentas/$archivo");
-    $arrayCuenta = explode("\n",$archivoRegistro);
-    if ($arrayCuenta[2] == $email || $arrayCuenta[0] == $username) {
-        $errorValidacion = true;
-    }
-}
+$sqlValidacionCuenta = "select * from usuarios where username = ? or email =?";
+$consultaValidacion = $pdo->prepare($sqlValidacionCuenta);
+$consultaValidacion->execute([$username,$email]);
 
-if (file_exists("cuentas/$username.txt") || $errorValidacion){
-    header('location: account.php?error=regError');
+
+if ($consultaValidacion->rowCount() > 0){
+    header('location: account.php?error=datosExistentesError');
 }else {
 
-    $archivoRegistro = fopen("cuentas/$username.txt",'a+');
-    fwrite($archivoRegistro,$username."\n");
-    fwrite($archivoRegistro,$password."\n");
-    fwrite($archivoRegistro,$email."\n");
-    fclose($archivoRegistro);
+  $sqlInsertarUsuario = " insert into usuarios (`nombre`,`username`,`password`,`email`) values (?,?,?,?) ";
+  $consulta = $pdo->prepare($sqlInsertarUsuario);
+  $consulta->execute([$nombre,$username,$password,$email]);  
+  header('location: account.php');
 }
 
-//tarea que pasa si ya existe el archivo
+?>
+
+

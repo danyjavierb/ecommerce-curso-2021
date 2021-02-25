@@ -49,9 +49,10 @@ foreach ($archivos as $archivo) {
               <li><a href="">Contact</a></li>
               <li><?php 
 
-              if (isset($_SESSION['logueado']) && isset($_SESSION['username'])){
-                $usernameLogueado = $_SESSION['username'];
-                echo "<a href='profile.html'>Bienvenido $usernameLogueado </a>";
+              if (isset($_SESSION['logueado']) && isset($_SESSION['user'])){
+                $userLogueado = $_SESSION['user'];
+                $nombreUser = $userLogueado['nombre'];
+                echo "<a href='profile.html'>Bienvenido $nombreUser </a>";
               }else {
                 echo '<a href="account.php">Account</a>';
               }
